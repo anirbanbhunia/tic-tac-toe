@@ -6,9 +6,10 @@ import Button from "./components/Button/Button";
 function App() {
   const[cardArr,setCardArr] = useState(Array(9).fill(""))
   const[turn,setTurn] = useState(true)
-  
+  const[machine,setMachine] = useState(false)
   function press(idx){
     if(cardArr[idx] == "" && logic() == false){
+      setTurn(!turn)
       let arr = cardArr;
       if(turn == true){
         arr[idx] = "X"
@@ -19,10 +20,17 @@ function App() {
         setCardArr(arr)
       }   
       // else cardArr[idx] = ""
-      setTurn(!turn)
+      
       console.log(idx)
     }
   }
+  if(turn == false){
+    let arr = []
+    let arr2 = cardArr
+    arr2.filter((x,i)=>x == "").map((x,i)=>i).forEach((x)=>arr.push(x))
+    console.log(arr[0])
+    press(arr[0])
+  } 
   function logic(){
     let res = false
     if(cardArr[0] == cardArr[1] && cardArr[1] == cardArr[2] && (cardArr[0]=="X"||cardArr[0]=="O")) res = cardArr[0]
